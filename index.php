@@ -3,13 +3,17 @@
 ?>  
 
   <main>
+
     <?php
     if (isset($_SESSION['userUid'])) {
-      echo '<p>You are logged in!</p>';
+      require "loggedin.php";
     } else {
-      echo '<p>You are logged out!</p>';
+      echo '<h1>Welcome to Tracktruck!</h1>
+      <p>Where you can track your vehicles in real time anytime</p>
+      ';
     }
     ?>
+
   </main> 
 
 <?php

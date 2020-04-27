@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const Datastore = require('nedb');
 
@@ -11,6 +12,7 @@ database.loadDatabase();
 
 app.listen(port, () =>  console.log("Listening"));
 app.use(express.static('public'));
+app.use(cors());
 
 app.use(bodyParser.json());
 app.post('/api', (req, res) => {
