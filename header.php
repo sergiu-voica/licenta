@@ -1,5 +1,6 @@
 <?php 
   session_start();
+  include_once 'includes/db.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,13 +18,18 @@
       <a href="#">
         <img src="image/logo.png" id="logo" alt="logo" width="100px">
       </a>
+      <?php
+        if (isset($_SESSION['userUid'])) {
+          echo '<ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="index.php?p=masini">Masini</a></li>
+            <li><a href="index.php?p=databasequery">Baza de date</a></li>
+          </ul>';
+        }
+      ?>
       <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="index.php">Home</a></li>
+      <li><a href="index.php?p=databasequery">Baza de date</a></li>
       </ul>
-
       <div id="login-form">
         <?php
           if (isset($_SESSION['userUid'])) {

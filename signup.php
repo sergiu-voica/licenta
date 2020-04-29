@@ -24,7 +24,7 @@
           echo '<p class="error">Login Successful!</p>';
         }
       ?>
-      <form action="includes/signup.php" method="POST">
+      <form class="sign-up" action="includes/signup.php" method="POST">
         <input type="text" name="username" placeholder="Username">
         <input type="text" name="mail" placeholder="E-mail">
         <input type="password" name="password" placeholder="Password">

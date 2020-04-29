@@ -24,7 +24,7 @@ const updateLocation = () => {
         const coords = await getLocation();
         updateMarkerPosition(coords, marker);
         console.log(`Location updated to coords: lat: ${coords.lat}, lng ${coords.long}`);
-    }, 10000);
+    }, 100000);
 }
 
 async function initMap () {
