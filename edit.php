@@ -1,27 +1,68 @@
+<?php 
+    if (isset($_GET['e'])) {
+        if ($_GET['e'] == "user") {
+            echo
+                '<div >
+                    <div class="form-popup" id="edit-user">
+                        <form class="db-form" action="" method="POST">
+                        <input type="text" name="username" placeholder="Username">
+                        <input type="text" name="mail" placeholder="E-mail">
+                        <input type="password" name="password" placeholder="Password">
+                        <input type="password" name="rpassword" placeholder="Repeat password">
+                        <button type="submit" name="edit-user">Edit user</button>
+                        </form>
+                    </div>
+                </div>';
+        } else if ($_GET['e'] == "car") {
+            echo 
+                '<div>
+                    <form class="db-form" action="" method="POST">
+                        <input type="text" name="brand" placeholder="Car">
+                        <input type="text" name="vehicleNumber" placeholder="Registration Plate">
+                        <button type="submit" name="edit-car">Edit car in database</button>
+                    </form>
+                </div>';
+        } else if ($_GET['e'] == "cargo") {
+            echo 
+                '<div>
+                    <form class="db-form" action="" method="POST">
+                        <input type="text" name="id_user" placeholder="User ID">    
+                        <input type="text" name="id_masina" placeholder="Car ID">
+                        <input type="text" name="description" placeholder="Description">
+                        <button type="submit" name="edit-cargo">Edit cargo in database</button>
+                    </form>
+                </div>';
+        }   
+    }
 
+?>
 
-<div >
-    <div class="form-popup" id="edit-user">
-        <form class="db-form" action="" method="POST">
-        <input type="text" name="username" placeholder="Username">
-        <input type="text" name="mail" placeholder="E-mail">
-        <input type="password" name="password" placeholder="Password">
-        <input type="password" name="rpassword" placeholder="Repeat password">
-        <button type="submit" name="edit-user">Edit user</button>
-        </form>
-    </div>
-</div>
 <?php 
     // session_start();
     if (isset($_POST['edit-user'])) {
         require 'includes/db.php';
-
         $auth = isset($_SESSION['userUid']);
         if(!$auth) {
             header("Location: index.php?p=edit&auth=false");
             exit();
         }
         editUser($conn);
+    } else if (isset($_POST['edit-car'])) {
+        require 'includes/db.php';
+        $auth = isset($_SESSION['userUid']);
+        if(!$auth) {
+            header("Location: index.php?p=edit&auth=false");
+            exit();
+        }
+        editCar($conn);
+    } else if (isset($_POST['edit-cargo'])) {
+        require 'includes/db.php';
+        $auth = isset($_SESSION['userUid']);
+        if(!$auth) {
+            header("Location: index.php?p=edit&auth=false");
+            exit();
+        }
+        editCargo($conn);
     }
 
     function editUser($conn) {
@@ -70,7 +111,7 @@
                     mysqli_stmt_execute($stmt);
                     
                     
-                    header("Location: index.php?p=databasequery&edituser=success");
+                    header("Location: index.php?pg=databasequery&edituser=success");
                     
                     exit();
                 }
@@ -78,6 +119,39 @@
             }
         }
         mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+    }
+
+    function editCargo($conn) {
+        $id = $_GET['id'];
+        $userId = $_GET['id_user'];
+        $carId = $_POST['id_masina']; 
+        $description = $_POST['description'];
+
+        $sql = "UPDATE cars SET id_user = '$userId', id_masina = '$carId', denumire = '$description' WHERE id=$id";
+        if (mysqli_query($conn, $sql)) {
+            header("Location: index.php?pg=cargo&editcargo=success");
+            exit();
+        } else {
+            echo "Error: " . $sql . "" . mysqli_error($conn);
+        }
+        
+        mysqli_close($conn);
+    }
+
+    function editCar($conn) {
+        $id = $_GET['id'];
+        $brand = $_POST['brand']; 
+        $vehicleNumber = $_POST['vehicleNumber'];
+
+        $sql = "UPDATE cars SET brand = '$brand', vehicleNumber = '$vehicleNumber' WHERE id=$id";
+        if (mysqli_query($conn, $sql)) {
+            header("Location: index.php?pg=cars&editcar=success");
+            exit();
+        } else {
+            echo "Error: " . $sql . "" . mysqli_error($conn);
+        }
+        
         mysqli_close($conn);
     }
 ?>

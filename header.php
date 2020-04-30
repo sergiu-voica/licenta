@@ -22,8 +22,9 @@
         if (isset($_SESSION['userUid'])) {
           echo '<ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="index.php?p=masini">Masini</a></li>
-            <li><a href="index.php?p=databasequery">Baza de date</a></li>
+            <li><a href="index.php?pg=cars">Cars</a></li>
+            <li><a href="index.php?pg=cargo">Cargo</a></li>
+            <li><a href="index.php?pg=databasequery">Useri</a></li>
           </ul>';
         }
       ?>
