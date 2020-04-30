@@ -161,3 +161,11 @@ input[type=text], input[type=password] {
   .success {
     color: green;
   }
+
+#edit-user {
+  width: 40%;
+}
+
+h3 {
+  text-align: center;
+}

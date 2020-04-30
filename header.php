@@ -27,9 +27,6 @@
           </ul>';
         }
       ?>
-      <ul>
-      <li><a href="index.php?p=databasequery">Baza de date</a></li>
-      </ul>
       <div id="login-form">
         <?php
           if (isset($_SESSION['userUid'])) {

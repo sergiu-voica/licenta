@@ -1,3 +1,16 @@
+  
+<?php
+    if ( ! isset($_POST['show-database']) ) { // not submitted yet
+?>
+  <script>
+  window.onload = function(){
+    $("#show-database").click();
+  }
+  </script>
+<?php
+    }
+?>
+
 <?php
   if (isset($_GET['auth'])) {
     if ($_GET['auth'] == "false") {
@@ -14,22 +27,45 @@
       echo '<p class="success">User removed from to database!</p>';
     }
   }
+  if (isset($_GET['edituser'])) {
+    if ($_GET['edituser'] == "success") {
+      echo '<p class="success">User successfully edited!</p>';
+    }
+  }
+  if (isset($_GET['p'])) {
+    if ($_GET['p'] == "edit") {
+      echo '<p>Editing user '.$_GET['user'].' with id '.$_GET['id'].'...</p>';
+    }
+  }
+  if (isset($_GET['p'])) {
+    if ($_GET['p'] == "delete") {
+      echo '<p>User '.$_GET['user'].' with id '.$_GET['id'].' has been deleted</p>';
+    }
+  }
+
 ?>
-<div class="database">
+
+<div class="database" id="ops">
+<?php 
+      if (isset($_GET['p'])) {
+        if ($_GET['p'] == "edit") {
+          require "edit.php";      
+        }
+      }
+      if (isset($_GET['p'])) {
+        if ($_GET['p'] == "delete") {
+          require "delete.php";      
+        }
+      }
+  ?>
   <div>
     <form class="db-form" method="POST">
-      <input type="text" name="show-database-query" placeholder="Enter query">
-      <button type="submit" name="show-database" value="Submit">Show database</button>
+      <input type="text" name="show-database-query" placeholder="Enter query" value='SELECT * FROM users'>
+      <button type="submit"  id="show-database" name="show-database" value="Submit">Show database</button>
     </form>
   </div>
   <div>
-    <form class="db-form" action="" method="POST">
-      <input type="text" name="show-database-query" placeholder="Enter query">
-      <button type="submit" name="show-database" value="Submit">Delete from database</button>
-    </form>
-  </div>
-  <div>
-    <form class="db-form" method="POST">
+    <form class="db-form" action="insertUser.php" method="POST">
       <input type="text" name="username" placeholder="Username">
       <input type="text" name="mail" placeholder="E-mail">
       <input type="password" name="password" placeholder="Password">
@@ -50,7 +86,38 @@
           $result = mysqli_query($conn, $sql);
           header("Location: index.php?p=databasequery&removeuser=success");
           exit();
-        } else{
+        } else if(strpos($input, "cars") !== false){
+            $sql = $input;
+            $result = mysqli_query($conn, $sql);
+            $result_check = mysqli_num_rows($result);
+            if ($result_check > 0) {
+              ?>
+                <table id="database">
+                  <tr>
+                    <th>Car ID</th>
+                    <th>carName</th>
+                    <th>idUsers</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                  ?>
+                    <tr>
+                      <td><?php echo $row['carID']?></td>
+                      <td><?php echo $row['carName']?></td>
+                      <td><?php echo $row['idUsers']?></td>
+                      <td><a href="index.php?p=edit&id=<?php echo $row["idUsers"]; ?>&user=<?php echo $row["usernameUsers"]; ?>"><img src="https://img.pngio.com/circle-compose-draw-edit-write-icon-edit-icon-png-512_512.png" alt="edit" width="30px"></a>
+                      <td><a href="index.php?p=delete&id=<?php echo $row["idUsers"]; ?>&user=<?php echo $row["usernameUsers"]; ?>"><img src="https://toppng.com/uploads/preview/delete-circle-icon-11563655960vxqxj7ly3u.png" alt="delete" width="30px"></a>
+                    </tr>
+                  <?php
+                }
+                ?>
+                </table>
+                <?php
+                // header("Location: index.php?p=databasequery&database=printed");
+            } 
+        } else {
           $sql = $input;
           $result = mysqli_query($conn, $sql);
           $result_check = mysqli_num_rows($result);
@@ -58,17 +125,23 @@
             ?>
               <table id="database">
                 <tr>
+                  <th>UserId</th>
                   <th>Username</th>
                   <th>E-mail</th>
                   <th>Encrypted pass</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               <?php
               while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                   <tr>
+                    <td><?php echo $row['idUsers']?></td>
                     <td><?php echo $row['usernameUsers']?></td>
                     <td><?php echo $row['emailUsers']?></td>
                     <td><?php echo $row['pwdUsers']?></td>
+                    <td><a href="index.php?p=edit&id=<?php echo $row["idUsers"]; ?>&user=<?php echo $row["usernameUsers"]; ?>"><img src="https://img.pngio.com/circle-compose-draw-edit-write-icon-edit-icon-png-512_512.png" alt="edit" width="30px"></a>
+                    <td><a href="index.php?p=delete&id=<?php echo $row["idUsers"]; ?>&user=<?php echo $row["usernameUsers"]; ?>"><img src="https://toppng.com/uploads/preview/delete-circle-icon-11563655960vxqxj7ly3u.png" alt="delete" width="30px"></a>
                   </tr>
                 <?php
               }
