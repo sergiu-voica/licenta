@@ -55,14 +55,18 @@
   ?>
   <div>
     <form class="db-form" method="POST">
-      <input type="text" name="show-database-query" placeholder="Enter query" value='SELECT * FROM cars'>
-      <button type="submit"  id="show-database" name="show-database" value="Submit">Show database</button>
+      <input type="hidden" name="show-database-query" placeholder="Enter query" value='SELECT * FROM cars WHERE userUid="<?php
+        echo $_SESSION['userUid']?>"'>
+      <button type="submit" style="display: none;" id="show-database" name="show-database" value="Submit">Show database</button>
     </form>
   </div>
   <div>
     <form class="db-form" action="insertCar.php" method="POST">
       <input type="text" name="brand" placeholder="Car">
       <input type="text" name="vehicleNumber" placeholder="Registration Plate">
+      <?php
+        echo '<input type="text" name="user" value="'.$_SESSION['userUid'].'"></input>'; 
+      ?>
       <button type="submit" name="add-car">Add car to database</button>
     </form>
   </div>
@@ -101,7 +105,7 @@
                       <td><?php echo $row['brand']?></td>
                       <td><?php echo $row['vehicleNumber']?></td>
                       <td><a href="index.php?pg=cars&p=edit&id=<?php echo $row["id"]; ?>&e=car"><img src="https://img.pngio.com/circle-compose-draw-edit-write-icon-edit-icon-png-512_512.png" alt="edit" width="30px"></a>
-                      <td><a href="index.php?pg=cars&p=delete&id=<?php echo $row["id"]; ?>&e=car"><img src="https://toppng.com/uploads/preview/delete-circle-icon-11563655960vxqxj7ly3u.png" alt="delete" width="30px"></a>
+                      <td><a href="index.php?pg=cars&p=delete&id=<?php echo $row["id"]; ?>&e=car" onclick="return confirm('Are you sure you want to delete selected car?');"><img src="https://toppng.com/uploads/preview/delete-circle-icon-11563655960vxqxj7ly3u.png" alt="delete" width="30px"></a>
                     </tr>
                   <?php
                 }

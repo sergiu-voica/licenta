@@ -1,11 +1,11 @@
   
 <?php
-    if ( ! isset($_POST['show-database']) ) { // not submitted yet
+    if (!isset($_POST['show-database'])) { // not submitted yet
 ?>
   <script>
-  window.onload = function(){
-    $("#show-database").click();
-  }
+    window.onload = function(){
+      $("#show-database").click();
+    }
   </script>
 <?php
     }
@@ -60,7 +60,7 @@
   ?>
   <div>
     <form class="db-form" method="POST">
-      <input type="text" type="hidden" name="show-database-query" placeholder="Enter query" value='SELECT * FROM users'>
+      <input type="text" name="show-database-query" placeholder="Enter query" value='SELECT * FROM users'>
       <button type="submit"  id="show-database" name="show-database" value="Submit">Show database</button>
     </form>
   </div>

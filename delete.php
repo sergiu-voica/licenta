@@ -31,7 +31,5 @@
     //$sql = "DELETE FROM users WHERE idUsers=$id";
     $result = mysqli_query($conn, $sql);
     header("Location: index.php?pg=databasequery&removeuser=success");
-    exit();
-
-    
+    exit();   
 ?>

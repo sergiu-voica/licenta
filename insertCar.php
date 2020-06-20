@@ -14,8 +14,9 @@
     function addCar($conn) {
         $brand = $_POST['brand']; 
         $vehicleNumber = $_POST['vehicleNumber'];
+        $user = $_POST['user'];
 
-        $sql = "INSERT INTO cars (brand, vehicleNumber) VALUES ('$brand', '$vehicleNumber')";
+        $sql = "INSERT INTO cars (userUid, brand, vehicleNumber) VALUES ('$user', '$brand', '$vehicleNumber')";
         if (mysqli_query($conn, $sql)) {
             header("Location: index.php?pg=cars&addcar=success");
             exit();

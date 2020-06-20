@@ -4,9 +4,9 @@
     if ( ! isset($_POST['show-database']) ) { // not submitted yet
 ?>
   <script>
-  window.onload = function(){
-    $("#show-database").click();
-  }
+    window.onload = function() {
+        $("#show-database").click();
+    }
   </script>
 <?php
     }

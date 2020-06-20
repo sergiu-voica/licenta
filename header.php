@@ -15,7 +15,7 @@
 
   <header>
     <nav class="navigation">
-      <a href="#">
+      <a href="index.php">
         <img src="image/logo.png" id="logo" alt="logo" width="100px">
       </a>
       <?php
