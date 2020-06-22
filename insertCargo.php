@@ -12,11 +12,11 @@
     }
 
     function addCar($conn) {
+        $userId = $_SESSION['userUid'];
         $carId = $_POST['id_masina']; 
-        $userId = $_POST['id_user'];
         $description = $_POST['description'];
 
-        $sql = "INSERT INTO cargo (id_user, id_masina, denumire) VALUES ('$userId', '$carId', '$description')";
+        $sql = "INSERT INTO cargo (userUid, vehicleNumber, denumire) VALUES ('$userId', '$carId', '$description')";
         if (mysqli_query($conn, $sql)) {
             header("Location: index.php?pg=cargo&addcargo=success");
             exit();

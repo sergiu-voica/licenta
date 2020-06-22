@@ -94,8 +94,8 @@
                     <th>Car ID</th>
                     <th>carName</th>
                     <th>Registration plate</th>
-                    <th></th>
-                    <th></th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                   </tr>
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {

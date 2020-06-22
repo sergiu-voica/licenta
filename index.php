@@ -8,8 +8,6 @@
     if (isset($_SESSION['userUid'])) {
       if(!isset($_GET['pg'])) {
         require "homepage.php";
-      // } else if (isset($_GET['p']) == 'edit' && isset($_GET['p']) != 'databasequery'){
-      //   require "edit.php";
       } else if ($_GET['pg'] == 'cargo') {
         include "cargo.php";
       } else if ($_GET['pg'] == 'databasequery') {

@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const Datastore = require('nedb');
 let mysql = require('mysql');
 
 const server = require('http').createServer(app);
@@ -41,14 +40,10 @@ app.post('/api', (req, res) => {
 app.get('/api', (req, res) => {
   const token = req.query.token
   console.log(req.query);
-  con.query(`SELECT lat, lng FROM locations WHERE token = "${token}" ORDER BY entryID DESC LIMIT 1`, (err, result) => {
+  con.query(`SELECT lat, lng, token, denumire FROM locations, cargo WHERE token = "${token}" AND locations.token = cargo.vehicleNumber ORDER BY entryID DESC LIMIT 1`, (err, result) => {
     if(err) throw err;
-    // const latestLocation = JSON.stringify(result);
     console.log(result);
-
     res.json(result);
-    
-    // console.log('Last location:', console.log(JSON.stringify(res)));
   });
 });
 
@@ -62,7 +57,7 @@ app.get('/cars', (req, res) => {
 });
 
 app.get('/allcars', (req, res) => {
-  con.query(`SELECT userUId, lat, lng, entryID, LastUpdated, token FROM locations,cars WHERE vehicleNumber = token AND entryID = (
+  con.query(`SELECT  lat, lng, entryID, LastUpdated, token, denumire FROM cargo, locations,cars WHERE cars.vehicleNumber = token AND entryID = (
     SELECT
       MAX(entryID)
     FROM
@@ -70,7 +65,7 @@ app.get('/allcars', (req, res) => {
     WHERE
       token = locations.token
   )
-AND userUId ="${userId}"`, (err, result) => {
+    AND cars.userUId ="${userId}"`, (err, result) => {
     if(err) throw err;
     console.log(result);
     res.json(result);

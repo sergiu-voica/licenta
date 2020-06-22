@@ -61,8 +61,8 @@
   </div>
   <div>
     <form class="db-form" action="insertCargo.php" method="POST">
-      <input type="text" name="id_user" placeholder="User ID">    
-      <input type="text" name="id_masina" placeholder="Car ID">
+      <!-- <input type="text" name="id_user" placeholder="Username">     -->
+      <input type="text" name="id_masina" placeholder="Vehicle Number">
       <input type="text" name="description" placeholder="Description">
       <button type="submit" name="add-cargo">Add cargo to database</button>
     </form>
@@ -100,8 +100,8 @@
                   ?>
                     <tr>
                       <td><?php echo $row['id']?></td>
-                      <td><?php echo $row['id_user']?></td>
-                      <td><?php echo $row['id_masina']?></td>
+                      <td><?php echo $row['userUid']?></td>
+                      <td><?php echo $row['vehicleNumber']?></td>
                       <td><?php echo $row['denumire']?></td>
 
                       <td><a href="index.php?pg=cargo&p=edit&id=<?php echo $row["id"]; ?>&e=cargo"><img src="https://img.pngio.com/circle-compose-draw-edit-write-icon-edit-icon-png-512_512.png" alt="edit" width="30px"></a>
